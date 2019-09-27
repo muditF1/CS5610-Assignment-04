@@ -1,47 +1,70 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import Card from './Card'
 import _ from 'lodash';
+import '../css/app.css'
 
 export default function game_init(root) {
   ReactDOM.render(<Starter />, root);
 }
 
-class Starter extends React.Component {
+// Declaring the Array of cars
+const cardValues = ["A", "B", "C", "D", "E", "F", "G",
+  "H", "A", "B", "C", "D", "E", "F", "G", "H"];
+
+// Shuffle the cards
+function shuffle(array) {
+  array.sort(() => Math.random() - 0.5);
+  return array;
+}
+
+class Starter extends Component {
   constructor(props) {
     super(props);
-    this.state = { left: false };
+    // initializing the state of the elements at load
+    this.state = {
+      cards: shuffle(cardValues),
+      viewedA: null,
+      viewedB: null,
+      validIndexes: [],
+    }
+    this.clickCard = this.clickCard.bind(this)
   }
 
-  swap(_ev) {
-    let state1 = _.assign({}, this.state, { left: !this.state.left });
-    this.setState(state1);
-  }
-
-  hax(_ev) {
-    alert("hax!");
+  clickCard(index) {
+    let { viewedA, viewedB, cards, validIndexes } = this.state;
+    if (viewedA == null) {
+      this.setState({ viewedA: index })
+    }
+    else {
+      if (cards[viewedA] === cards[index]) {
+        this.setState({ validIndexes: validIndexes.concat([viewedA, index]) })
+      }
+      else {
+        this.setState({ viewedB: index })
+        setTimeout(() => {
+          this.setState({ viewedA: null, viewedB: null })
+        }, 500);
+      }
+    }
   }
 
   render() {
-    let button = <div className="column" onMouseMove={this.swap.bind(this)}>
-      <p><button onClick={this.hax.bind(this)}>Click Me</button></p>
-    </div>;
-
-    let blank = <div className="column">
-      <p>Nothing here.</p>
-    </div>;
-
-    if (this.state.left) {
-      return <div className="row">
-        {button}
-        {blank}
-      </div>;
-    }
-    else {
-      return <div className="row">
-        {blank}
-        {button}
-      </div>;
-    }
+    let onSelectFn;
+    console.log(this.state.validIndexes);
+    return (
+      <div className="flex-container">{this.state.cards.map((imageName, i) => {
+        if (this.state.validIndexes.find((element) => { return element == i })) {
+          return <Card displayed={true} style={{ color: "red" }} cardImageName={imageName} key={i} onSelect={() => { }} />
+        }
+        if (this.state.viewedA == i) {
+          onSelectFn = () => { };
+        }
+        else {
+          onSelectFn = () => { this.clickCard(i) }
+        }
+        return <Card displayed={this.state.viewedA == i || this.state.viewedB == i} isSelected={this.state.viewedA == i} cardImageName={imageName} key={i} onSelect={onSelectFn} />
+      })}</div>
+    );
   }
 }
-
