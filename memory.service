@@ -3,14 +3,14 @@ Description=Memory Game
 
 [Service]
 Type=simple
-User=memory
-Group=memory
+User=memory1
+Group=memory1
 Restart=on-failure
 Environment=MIX_ENV=prod "PORT=4791"
 Environment=LANG=en_US.UTF-8
 
-WorkingDirectory=/home/memory/memory
-ExecStart=bash /home/memory/memory/start.sh
+WorkingDirectory=/home/memory1/CS5610-ASSIGNMENT-04
+ExecStart=bash /home/memory1/CS5610-ASSIGNMENT-04/start.sh
 
 [Install]
 WantedBy=multi-user.target
