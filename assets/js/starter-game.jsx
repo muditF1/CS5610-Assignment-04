@@ -26,7 +26,7 @@ class Starter extends Component {
       cards: shuffle(cardValues),
       viewedA: null,
       viewedB: null,
-      validIndexes: [],
+      validIndexes: []
     }
     this.clickCard = this.clickCard.bind(this)
   }
@@ -44,27 +44,48 @@ class Starter extends Component {
         this.setState({ viewedB: index })
         setTimeout(() => {
           this.setState({ viewedA: null, viewedB: null })
-        }, 500);
+        }, 1000);
       }
     }
   }
 
+  resetGame () {
+    this.setState({
+      cards: shuffle(cardValues),
+      viewedA: null,
+      viewedB: null,
+      validIndexes: []
+    });
+  };
+
   render() {
     let onSelectFn;
-    console.log(this.state.validIndexes);
+    let button = <div className="column">
+      <p><button onClick={this.resetGame.bind(this)}>Reset Game</button></p><br/>
+    </div>;
+
+    let gameDescription = <div>
+      <p>Memory game where you need to match pairs of tiles. Playing is very simple - you turn over one tile and then try to find a matching tile.</p>
+    </div>;
+
     return (
-      <div className="flex-container">{this.state.cards.map((imageName, i) => {
-        if (this.state.validIndexes.find((element) => { return element == i })) {
-          return <Card displayed={true} style={{ color: "red" }} cardImageName={imageName} key={i} onSelect={() => { }} />
-        }
-        if (this.state.viewedA == i) {
-          onSelectFn = () => { };
-        }
-        else {
-          onSelectFn = () => { this.clickCard(i) }
-        }
-        return <Card displayed={this.state.viewedA == i || this.state.viewedB == i} isSelected={this.state.viewedA == i} cardImageName={imageName} key={i} onSelect={onSelectFn} />
-      })}</div>
+      <div>
+        {gameDescription}
+        {button}
+        {<br/>}
+        <div className="column flex-container">{this.state.cards.map((name, index) => {
+          if (this.state.validIndexes.find((element) => { return element == index })) {
+            return <Card displayed={true} style={{ visibility:"hidden" }} cardName={name} key={index} onSelect={() => { }} />
+          }
+          if (this.state.viewedA == index) {
+            onSelectFn = () => { };
+          }
+          else {
+            onSelectFn = () => { this.clickCard(index) }
+          }
+          return <Card displayed={this.state.viewedA == index || this.state.viewedB == index} isSelected={this.state.viewedA == index} cardName={name} key={index} onSelect={onSelectFn} />
+        })}</div>
+      </div>
     );
   }
 }
