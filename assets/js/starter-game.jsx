@@ -61,7 +61,7 @@ class Starter extends Component {
   render() {
     let onSelectFn;
     let button = <div className="column">
-      <p><button onClick={this.resetGame.bind(this)}>Reset Game</button></p><br/>
+      <p><button onClick={this.resetGame.bind(this)}>Reset Game</button></p>
     </div>;
 
     let gameDescription = <div>
@@ -72,7 +72,6 @@ class Starter extends Component {
       <div>
         {gameDescription}
         {button}
-        {<br/>}
         <div className="column flex-container">{this.state.cards.map((name, index) => {
           if (this.state.validIndexes.find((element) => { return element == index })) {
             return <Card displayed={true} style={{ visibility:"hidden" }} cardName={name} key={index} onSelect={() => { }} />
