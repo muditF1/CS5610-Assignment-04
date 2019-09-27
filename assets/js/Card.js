@@ -7,11 +7,11 @@ class Card extends Component {
     render() {
         if (this.props.displayed) {
             return (
-                <div style={this.props.style} onClick={this.onClickHandler.bind(this)}>{this.props.cardImageName}</div>
+                <div><p><button style={this.props.style} onClick={this.onClickHandler.bind(this)}>{this.props.cardName}</button></p></div>
             );
         }
         else {
-            return (<div style={this.props.style} onClick={this.onClickHandler.bind(this)}>Click Me!</div>);
+            return (<div><p><button style={this.props.style} onClick={this.onClickHandler.bind(this)}>Click Me!</button></p></div>);
         }
     }
 }
