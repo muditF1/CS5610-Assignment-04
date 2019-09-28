@@ -1,0 +1,40 @@
+Please fill in answers to the questions below:
+
+
+1. What's your name?
+Mudit Singh
+
+
+
+2. What's the URL of the github repo with your work for this HW?
+https://github.com/muditF1/CS5610-Assignment-04
+
+
+
+3. What's the URL that you deployed to?
+http://memory1.muditsingh.online
+
+
+
+
+4. Is your game functionality complete? If not, what's missing?
+- Click counts and score
+
+
+
+5. Is your game properly deployed? If not, what went wrong?
+Starting the service is again giving me problems even though i followed the exact same steps as told by professor.
+
+
+
+
+
+And here's a list of tasks for grading comments. Just leave this here:
+ - Development
+ - Deployment
+ - Submission
+ - AA
+ - BB
+ - CC
+
+
